@@ -28,7 +28,7 @@ Server-version: %s Model-version: %s Model-date: %s
 )
 
 //
-const NUMBERS = 5000000
+const NUMBERS = 250000
 const MIN = 100000   // Hundra tusen
 const MAX = 50000000 // 50 miljoner
 
@@ -85,9 +85,9 @@ func main() {
 	// #############################
 	header := []byte("Region,Office,Reveue,Segment\r\n")
 	//
-	err := ioutil.WriteFile("segment_training_v4.csv", header, 0644)
+	err := ioutil.WriteFile("csv/segment_training_v4.csv", header, 0644)
 	check(err)
-	f, err := os.Create("segment_training_v4.csv")
+	f, err := os.Create("csv/segment_training_v4.csv")
 	check(err)
 	defer f.Close()
 	//
