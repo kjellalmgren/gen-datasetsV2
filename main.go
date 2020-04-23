@@ -28,7 +28,7 @@ Server-version: %s Model-version: %s Model-date: %s
 )
 
 //
-const NUMBERS = 75
+const NUMBERS = 100
 const MIN = 100  // Hundra tusen
 const MAX = 1000 // 50 miljoner
 
@@ -71,14 +71,11 @@ func main() {
 	//min = 10000 // minimum value
 	//max = 90000 // max value to generate
 	fmt.Printf("Range to be used: (%d - %d) number of records to produce %d\r\n",
-		MIN, MAX, (MAX - MIN))
+		MIN, MAX, NUMBERS)
 	// #############################
 	//a := []int{1, 2, 3, 4, 5, 6, 7, 8}
 	fmt.Printf("Start init integer array\r\n")
-	a := [NUMBERS]int64{}
-	//for j := int64(min); (j + min) < max; j++ {
-	//	a[j] = j
-	//}
+	a := [NUMBERS]float64{}
 	fmt.Printf("Start random order array\r\n")
 
 	rand.Shuffle(len(a), func(i, j int) { a[i], a[j] = a[j], a[i] })
@@ -95,14 +92,9 @@ func main() {
 	w := bufio.NewWriter(f)
 	b1, err := w.WriteString(fmt.Sprintf("%s", header))
 	btot := 0
-
+	//
 	for i := int64(len(a)) - 1; i > 0; i-- { // Fisher–Yates shuffle
-		//rand.Seed(time.Now().UnixNano())
-		//j := rand.Int63n(min)
 		j := randomNumber(MIN, MAX)
-		//a[i], a[j] = a[j], a[i]
-		//ff := float64(a[j])
-		//ff := float64(j)
 		b2, err := w.WriteString(fmt.Sprintf("10.0,100.0,%.1f,%d\r\n",
 			float64(j), getSegment(j)))
 		check(err)
@@ -117,13 +109,13 @@ func main() {
 }
 
 // randomNumber
-func randomNumber(min int64, max int64) int64 {
+func randomNumber(min float64, max float64) float64 {
 
-	var rn int64
+	var rn float64
 	rn = 0
 	for rn == 0 || (rn < min && rn > max) {
 		rand.Seed(time.Now().UnixNano())
-		rn = rand.Int63n(max)
+		rn = min + rand.Float64()*(max-min) // rand.int63(max)
 	}
 	return rn
 }
@@ -141,7 +133,7 @@ func getHostname() string {
 }
 
 // getSegment for value
-func getSegment(i int64) int {
+func getSegment(i float64) int {
 	//revenue = rand.Intn(max-min) + min
 	//value := max - min // max - min = 1 000 000 - 100 000 = 900 000
 	value := float64(i)
