@@ -28,9 +28,9 @@ Server-version: %s Model-version: %s Model-date: %s
 )
 
 //
-const NUMBERS = 100
-const MIN = 100  // Hundra tusen
-const MAX = 1000 // 50 miljoner
+const NUMBERS = 1000
+const MIN = 1000  // Hundra tusen
+const MAX = 10000 // 50 miljoner
 
 var (
 	srv  bool
