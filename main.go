@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"math/rand"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/fatih/color"
@@ -31,6 +32,19 @@ Server-version: %s Model-version: %s Model-date: %s
 const NUMBERS = 1000
 const MIN = 1000  // Hundra tusen
 const MAX = 10000 // 50 miljoner
+const NUMBER_OF_REGION = 4
+const NUMBER_OF_OFFICE = 2
+const REGIONS = "SYD;NORR;VÄST;ÖST"
+
+// RegionType
+type regionType struct {
+	Name string `json:"name"`
+}
+
+// RegionsType
+type regionsType struct {
+	Regions []regionType
+}
 
 var (
 	srv  bool
@@ -43,8 +57,28 @@ var (
 	max int64
 )
 
+//AddItem description
+func (regions *regionsType) AddItem(region regionType) {
+	regions.Regions = append(regions.Regions, region)
+}
+
+// createRegions documentation
+func createRegions() regionsType {
+
+	regions := regionsType{}
+	region := regionType{}
+	//
+	items := strings.Split(REGIONS, ";")
+	for i := range items {
+		region.Name = items[i]
+		regions.AddItem(region)
+	}
+	return regions
+}
+
 // init documwentation
 func init() {
+	//regions := {"SYD", "NORR", "ÖST", "VÄST"}
 
 	// instanciate a new logger
 	var log = logrus.New()
@@ -57,6 +91,9 @@ func init() {
 
 // our main function
 func main() {
+
+	regions := createRegions()
+	fmt.Printf("Length: %d", len(regions.Regions))
 
 	color.Set(color.FgHiYellow)
 	fmt.Printf("Started on server: ")
