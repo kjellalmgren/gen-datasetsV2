@@ -28,22 +28,45 @@ Server-version: %s Model-version: %s Model-date: %s
 `
 )
 
-//
+// NUMBERS Documentation
 const NUMBERS = 1000
-const MIN = 1000  // Hundra tusen
+
+// MIN - Hundra tusen
+const MIN = 1000
+
+// MAX - 10000
 const MAX = 10000 // 50 miljoner
-const NUMBER_OF_REGION = 4
-const NUMBER_OF_OFFICE = 2
+// NumberofRegion Documentation
+const NumberofRegion = 4
+
+// NumberofOffice Documentation
+const NumberofOffice = 2
+
+// REGIONS Documentation
 const REGIONS = "SYD;NORR;VÄST;ÖST"
 
-// RegionType
-type regionType struct {
+// OFFICES Documentation
+const OFFICES = "10;20"
+
+// OfficeType documentation
+type OfficeType struct {
+	OfficeID string `json:"officeID"`
+	Name     string `json:"Name"`
+}
+
+// OfficesType documentation
+type OfficesType struct {
+	Offices []OfficeType
+}
+
+// RegionType Documentation
+type RegionType struct {
 	Name string `json:"name"`
 }
 
-// RegionsType
-type regionsType struct {
-	Regions []regionType
+// RegionsType Documntation
+type RegionsType struct {
+	Regions []RegionType
 }
 
 var (
@@ -58,15 +81,20 @@ var (
 )
 
 //AddItem description
-func (regions *regionsType) AddItem(region regionType) {
+func (regions *RegionsType) AddItem(region RegionType) {
 	regions.Regions = append(regions.Regions, region)
 }
 
-// createRegions documentation
-func createRegions() regionsType {
+//AddItem description
+func (offices *OfficesType) AddItem(office OfficeType) {
+	offices.Offices = append(offices.Offices, office)
+}
 
-	regions := regionsType{}
-	region := regionType{}
+// CreateRegions documentation
+func CreateRegions() RegionsType {
+
+	regions := RegionsType{}
+	region := RegionType{}
 	//
 	items := strings.Split(REGIONS, ";")
 	for i := range items {
@@ -74,6 +102,20 @@ func createRegions() regionsType {
 		regions.AddItem(region)
 	}
 	return regions
+}
+
+// CreateOffices documentation
+func CreateOffices() OfficesType {
+
+	offices := OfficesType{}
+	office := OfficeType{}
+	//
+	items := strings.Split(OFFICES, ";")
+	for i := range items {
+		office.OfficeID = items[i]
+		office.Name = items[i+1]
+	}
+	return offices
 }
 
 // init documwentation
@@ -92,9 +134,11 @@ func init() {
 // our main function
 func main() {
 
-	regions := createRegions()
-	fmt.Printf("Length: %d", len(regions.Regions))
-
+	regions := CreateRegions()
+	fmt.Printf("Regions Length: %d", len(regions.Regions))
+	offices := CreateOffices()
+	fmt.Printf("Offices Length: %d", len(offices.Offices))
+	//
 	color.Set(color.FgHiYellow)
 	fmt.Printf("Started on server: ")
 	color.Set(color.FgHiRed)
