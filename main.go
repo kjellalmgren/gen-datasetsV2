@@ -3,11 +3,12 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"gen-datasets/offices"
+	"gen-datasets/regions"
 	"gen-datasets/version"
 	"io/ioutil"
 	"math/rand"
 	"os"
-	"strings"
 	"time"
 
 	"github.com/fatih/color"
@@ -42,33 +43,6 @@ const NumberofRegion = 4
 // NumberofOffice Documentation
 const NumberofOffice = 2
 
-// REGIONS Documentation
-const REGIONS = "SYD;NORR;VÄST;ÖST"
-
-// OFFICES Documentation
-const OFFICES = "10;20"
-
-// OfficeType documentation
-type OfficeType struct {
-	OfficeID string `json:"officeID"`
-	Name     string `json:"Name"`
-}
-
-// OfficesType documentation
-type OfficesType struct {
-	Offices []OfficeType
-}
-
-// RegionType Documentation
-type RegionType struct {
-	Name string `json:"name"`
-}
-
-// RegionsType Documntation
-type RegionsType struct {
-	Regions []RegionType
-}
-
 var (
 	srv  bool
 	vrsn bool
@@ -79,44 +53,6 @@ var (
 	min int64
 	max int64
 )
-
-//AddItem description
-func (regions *RegionsType) AddItem(region RegionType) {
-	regions.Regions = append(regions.Regions, region)
-}
-
-//AddItem description
-func (offices *OfficesType) AddItem(office OfficeType) {
-	offices.Offices = append(offices.Offices, office)
-}
-
-// CreateRegions documentation
-func CreateRegions() RegionsType {
-
-	regions := RegionsType{}
-	region := RegionType{}
-	//
-	items := strings.Split(REGIONS, ";")
-	for i := range items {
-		region.Name = items[i]
-		regions.AddItem(region)
-	}
-	return regions
-}
-
-// CreateOffices documentation
-func CreateOffices() OfficesType {
-
-	offices := OfficesType{}
-	office := OfficeType{}
-	//
-	items := strings.Split(OFFICES, ";")
-	for i := range items {
-		office.OfficeID = items[i]
-		office.Name = items[i+1]
-	}
-	return offices
-}
 
 // init documwentation
 func init() {
@@ -134,10 +70,17 @@ func init() {
 // our main function
 func main() {
 
-	regions := CreateRegions()
-	fmt.Printf("Regions Length: %d", len(regions.Regions))
-	offices := CreateOffices()
-	fmt.Printf("Offices Length: %d", len(offices.Offices))
+	regions := regions.CreateRegions()
+	for i := range regions.Regions {
+		fmt.Printf("Region: %s\r\n", regions.Regions[i].Name)
+	}
+	//
+	offices := offices.CreateOffices()
+	for j := range offices.Offices {
+		fmt.Printf("OfficesId: %s - ", offices.Offices[j].OfficeID)
+		fmt.Printf("OfficesName: %s\n", offices.Offices[j].Name)
+	}
+	os.Exit(0)
 	//
 	color.Set(color.FgHiYellow)
 	fmt.Printf("Started on server: ")
