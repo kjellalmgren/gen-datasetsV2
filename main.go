@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"gen-datasets/offices"
-	"gen-datasets/regions"
 	"gen-datasets/version"
 	"io/ioutil"
 	"math/rand"
@@ -29,6 +28,17 @@ Server-version: %s Model-version: %s Model-date: %s
 `
 )
 
+var (
+	srv  bool
+	vrsn bool
+	date bool
+)
+
+var (
+	min int64
+	max int64
+)
+
 // NUMBERS Documentation
 const NUMBERS = 1000
 
@@ -43,20 +53,8 @@ const NumberofRegion = 4
 // NumberofOffice Documentation
 const NumberofOffice = 2
 
-var (
-	srv  bool
-	vrsn bool
-	date bool
-)
-
-var (
-	min int64
-	max int64
-)
-
 // init documwentation
 func init() {
-	//regions := {"SYD", "NORR", "ÖST", "VÄST"}
 
 	// instanciate a new logger
 	var log = logrus.New()
@@ -67,16 +65,17 @@ func init() {
 	color.Unset()
 }
 
-// our main function
+// our main function, here we go...
 func main() {
 
-	regions := regions.CreateRegions()
-	for i := range regions.Regions {
-		fmt.Printf("Region: %s\r\n", regions.Regions[i].Name)
-	}
+	//regions := regions.CreateRegions()
+	//for i := range regions.Regions {
+	//	fmt.Printf("Region: %s\r\n", regions.Regions[i].Name)
+	//}
 	//
 	offices := offices.CreateOffices()
 	for j := range offices.Offices {
+		fmt.Printf("Region: %s ", offices.Offices[j].RegionID)
 		fmt.Printf("OfficesId: %s - ", offices.Offices[j].OfficeID)
 		fmt.Printf("OfficesName: %s\n", offices.Offices[j].Name)
 	}
