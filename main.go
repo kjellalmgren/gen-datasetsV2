@@ -79,7 +79,8 @@ func main() {
 		fmt.Printf("OfficesId: %s - ", offices.Offices[j].OfficeID)
 		fmt.Printf("OfficesName: %s\n", offices.Offices[j].Name)
 	}
-	os.Exit(0)
+	//
+	// os.Exit(0)
 	//
 	color.Set(color.FgHiYellow)
 	fmt.Printf("Started on server: ")
@@ -105,9 +106,9 @@ func main() {
 	// #############################
 	header := []byte("Region,Office,Reveue,Segment\r\n")
 	//
-	err := ioutil.WriteFile("csv/segment_training_v4.csv", header, 0644)
+	err := ioutil.WriteFile("csv/segment_training_v5.csv", header, 0644)
 	check(err)
-	f, err := os.Create("csv/segment_training_v4.csv")
+	f, err := os.Create("csv/segment_training_v5.csv")
 	check(err)
 	defer f.Close()
 	//
