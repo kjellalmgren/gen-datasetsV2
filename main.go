@@ -58,7 +58,10 @@ const NumberofRegion = 4
 const NumberofOffice = 2
 
 // generate v4 of the data-sets
-var v4 bool
+var (
+	v4 bool
+	v5 bool
+)
 
 // init documwentation
 func init() {
@@ -72,7 +75,8 @@ func init() {
 	color.Unset()
 	flag.BoolVar(&vrsn, "version", false, "print version and exit")
 	flag.BoolVar(&vrsn, "v", false, "print version and exit (shorthand)")
-	flag.BoolVar(&v4, "v4", false, "Generate old version for the datasets")
+	flag.BoolVar(&v4, "v4", false, "Generate old version of the datasets")
+	flag.BoolVar(&v5, "v5", false, "Generate version 5 of the datasets")
 	//
 	flag.Usage = func() {
 		//fmt.Fprint(os.Stderr, fmt.Sprintf(TETRACON, version.ServerVersion(), version.ModelVersion(), version.ModelDate()))
@@ -96,12 +100,15 @@ func init() {
 	if arg == "v4" {
 		v4 = true
 	}
+	if arg == "v5" {
+		v5 = true
+	}
 	if arg == "help" {
 		usageAndExit("description", 0)
 	}
 
 	if arg == "version" {
-		fmt.Printf("GEn-DatasetV2 version history, model-date %s, model-version: %s, server-version: %s\n", version.ModelDate(), version.ModelVersion(), version.ServerVersion())
+		fmt.Printf("GEN-DatasetV2 version history, model-date %s, model-version: %s, server-version: %s\n", version.ModelDate(), version.ModelVersion(), version.ServerVersion())
 		os.Exit(0)
 	}
 }
@@ -114,19 +121,6 @@ func main() {
 	//	fmt.Printf("Region: %s\r\n", regions.Regions[i].Name)
 	//}
 	//
-	offices := offices.CreateOffices()
-	for j := range offices.Offices {
-		fmt.Printf("Region: %s ", offices.Offices[j].RegionID)
-		fmt.Printf("OfficesId: %s - ", offices.Offices[j].OfficeID)
-		fmt.Printf("OfficesName: %s\n", offices.Offices[j].Name)
-	}
-	//
-	// os.Exit(0)
-	//
-
-	//
-	//min = 10000 // minimum value
-	//max = 90000 // max value to generate
 	if v4 == true {
 		color.Set(color.FgHiYellow)
 		fmt.Printf("Started on server: ")
@@ -137,6 +131,18 @@ func main() {
 		fmt.Printf("gen-datasets v4 started...\r\n")
 		color.Unset()
 		generateV4Datasets(MIN, MAX)
+	}
+	//
+	if v5 == true {
+		color.Set(color.FgHiYellow)
+		fmt.Printf("Started on server: ")
+		color.Set(color.FgHiRed)
+		fmt.Fprint(os.Stdout, fmt.Sprintf(getHostname()))
+		fmt.Printf("\r\n")
+		color.Set(color.FgHiGreen)
+		fmt.Printf("gen-datasets v5 started...\r\n")
+		color.Unset()
+		generateV5Datasets()
 	}
 }
 
@@ -209,5 +215,20 @@ func generateV4Datasets(MIN float64, MAX float64) {
 	color.Set(color.FgHiGreen)
 	//fmt.Printf("- File: %s, # of lines: %d, processing time: %s \r\n",
 	//	fileName, lineCount, time.Since(startTime1))
+	fmt.Printf("gen-datasets v4 finnished in %s...\r\n", time.Since(startTime1))
+}
+
+// generateV5Datasets documenation
+func generateV5Datasets() {
+
+	startTime1 := time.Now()
+	// Display regions and offices
+	offices := offices.CreateOffices()
+	for j := range offices.Offices {
+		fmt.Printf("RegionID: %s ", offices.Offices[j].RegionID)
+		fmt.Printf("Region: %s ", offices.Offices[j].Region)
+		fmt.Printf("OfficesId: %s - ", offices.Offices[j].OfficeID)
+		fmt.Printf("OfficesName: %s\n", offices.Offices[j].Name)
+	}
 	fmt.Printf("gen-datasets v4 finnished in %s...\r\n", time.Since(startTime1))
 }
