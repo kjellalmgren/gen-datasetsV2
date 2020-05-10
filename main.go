@@ -2,8 +2,11 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
 	"gen-datasets/offices"
+	"gen-datasets/randoms"
+	"gen-datasets/segments"
 	"gen-datasets/version"
 	"io/ioutil"
 	"math/rand"
@@ -40,7 +43,8 @@ var (
 )
 
 // NUMBERS Documentation
-const NUMBERS = 1000
+const NUMBERSV4 = 1000
+const NUMBERSV5 = 0
 
 // MIN - Hundra tusen
 const MIN = 1000
@@ -53,6 +57,9 @@ const NumberofRegion = 4
 // NumberofOffice Documentation
 const NumberofOffice = 2
 
+// generate v4 of the data-sets
+var v4 bool
+
 // init documwentation
 func init() {
 
@@ -63,6 +70,40 @@ func init() {
 	color.Set(color.FgHiGreen)
 	fmt.Fprint(os.Stderr, fmt.Sprintf(TETRACON, version.ServerVersion(), version.ModelVersion(), version.ModelDate()))
 	color.Unset()
+	flag.BoolVar(&vrsn, "version", false, "print version and exit")
+	flag.BoolVar(&vrsn, "v", false, "print version and exit (shorthand)")
+	flag.BoolVar(&v4, "v4", false, "Generate old version for the datasets")
+	//
+	flag.Usage = func() {
+		//fmt.Fprint(os.Stderr, fmt.Sprintf(TETRACON, version.ServerVersion(), version.ModelVersion(), version.ModelDate()))
+		flag.PrintDefaults()
+	}
+
+	flag.Parse()
+	//
+	if vrsn {
+		fmt.Printf("flag version %s\n", version.ServerVersion())
+		os.Exit(0)
+	}
+
+	if flag.NArg() < 1 {
+		usageAndExit("Need parameters", 0)
+	}
+
+	// parse the arg
+	arg := flag.Args()[0]
+
+	if arg == "v4" {
+		v4 = true
+	}
+	if arg == "help" {
+		usageAndExit("description", 0)
+	}
+
+	if arg == "version" {
+		fmt.Printf("GEn-DatasetV2 version history, model-date %s, model-version: %s, server-version: %s\n", version.ModelDate(), version.ModelVersion(), version.ServerVersion())
+		os.Exit(0)
+	}
 }
 
 // our main function, here we go...
@@ -82,66 +123,21 @@ func main() {
 	//
 	// os.Exit(0)
 	//
-	color.Set(color.FgHiYellow)
-	fmt.Printf("Started on server: ")
-	color.Set(color.FgHiRed)
-	fmt.Fprint(os.Stdout, fmt.Sprintf(getHostname()))
-	fmt.Printf("\r\n")
-	color.Set(color.FgHiGreen)
-	fmt.Printf("gen-datasets started...\r\n")
-	color.Unset()
-	startTime1 := time.Now()
+
 	//
 	//min = 10000 // minimum value
 	//max = 90000 // max value to generate
-	fmt.Printf("Range to be used: (%d - %d) number of records to produce %d\r\n",
-		MIN, MAX, NUMBERS)
-	// #############################
-	//a := []int{1, 2, 3, 4, 5, 6, 7, 8}
-	fmt.Printf("Start init integer array\r\n")
-	a := [NUMBERS]float64{}
-	fmt.Printf("Start random order array\r\n")
-
-	rand.Shuffle(len(a), func(i, j int) { a[i], a[j] = a[j], a[i] })
-	// #############################
-	header := []byte("Region,Office,Reveue,Segment\r\n")
-	//
-	err := ioutil.WriteFile("csv/segment_training_v5.csv", header, 0644)
-	check(err)
-	f, err := os.Create("csv/segment_training_v5.csv")
-	check(err)
-	defer f.Close()
-	//
-	//
-	w := bufio.NewWriter(f)
-	b1, err := w.WriteString(fmt.Sprintf("%s", header))
-	btot := 0
-	//
-	for i := int64(len(a)) - 1; i > 0; i-- { // Fisher–Yates shuffle
-		j := randomNumber(MIN, MAX)
-		b2, err := w.WriteString(fmt.Sprintf("10.0,100.0,%.1f,%d\r\n",
-			float64(j), getSegment(j)))
-		check(err)
-		btot = btot + b2
+	if v4 == true {
+		color.Set(color.FgHiYellow)
+		fmt.Printf("Started on server: ")
+		color.Set(color.FgHiRed)
+		fmt.Fprint(os.Stdout, fmt.Sprintf(getHostname()))
+		fmt.Printf("\r\n")
+		color.Set(color.FgHiGreen)
+		fmt.Printf("gen-datasets v4 started...\r\n")
+		color.Unset()
+		generateV4Datasets(MIN, MAX)
 	}
-	w.Flush()
-	fmt.Printf("Wrote %d bytes\r\n", btot+b1)
-	color.Set(color.FgHiGreen)
-	//fmt.Printf("- File: %s, # of lines: %d, processing time: %s \r\n",
-	//	fileName, lineCount, time.Since(startTime1))
-	fmt.Printf("gen-datasets finnished in %s...\r\n", time.Since(startTime1))
-}
-
-// randomNumber
-func randomNumber(min float64, max float64) float64 {
-
-	var rn float64
-	rn = 0
-	for rn == 0 || (rn < min && rn > max) {
-		rand.Seed(time.Now().UnixNano())
-		rn = min + rand.Float64()*(max-min) // rand.int63(max)
-	}
-	return rn
 }
 
 //
@@ -156,33 +152,62 @@ func getHostname() string {
 	return hostname
 }
 
-// getSegment for value
-func getSegment(i float64) int {
-	//revenue = rand.Intn(max-min) + min
-	//value := max - min // max - min = 1 000 000 - 100 000 = 900 000
-	value := float64(i)
-	_max := float64(MAX)
-	percent := value / _max
-	segment := 0
-	if (percent > float64(0.0)) && (percent <= float64(0.25)) {
-		segment = 0
-	}
-	if (percent > float64(0.25)) && (percent <= float64(0.50)) {
-		segment = 1
-	}
-	if (percent > float64(0.50)) && (percent <= float64(0.75)) {
-		segment = 2
-	}
-	if (percent > float64(0.75)) && (percent <= float64(1.00)) {
-		segment = 3
-	}
-	//fmt.Println(fmt.Sprintf("value: %d - %d - %f (%d)", max, i, percent, segment))
-	return segment
-}
-
 // check for error
 func check(e error) {
 	if e != nil {
 		panic(e)
 	}
+}
+
+// usageAndExit documentation
+func usageAndExit(message string, exitCode int) {
+	if message != "" {
+		fmt.Fprintf(os.Stderr, message)
+		fmt.Fprintf(os.Stderr, "\n\n")
+	}
+	flag.Usage()
+	fmt.Fprintf(os.Stderr, "\n")
+	os.Exit(exitCode)
+}
+
+// generateV4Datasets documentation
+func generateV4Datasets(MIN float64, MAX float64) {
+
+	startTime1 := time.Now()
+	fmt.Printf("Range to be used: (%f - %f) number of records to produce %d\r\n",
+		MIN, MAX, NUMBERSV4)
+	// #############################
+	//a := []int{1, 2, 3, 4, 5, 6, 7, 8}
+	fmt.Printf("Start init integer array\r\n")
+	a := [NUMBERSV4]float64{}
+	fmt.Printf("Start random order array\r\n")
+
+	rand.Shuffle(len(a), func(i, j int) { a[i], a[j] = a[j], a[i] })
+	// #############################
+	header := []byte("Region,Office,Reveue,Segment\r\n")
+	//
+	err := ioutil.WriteFile("csv/segment_training_v4.csv", header, 0644)
+	check(err)
+	f, err := os.Create("csv/segment_training_v4.csv")
+	check(err)
+	defer f.Close()
+	//
+	//
+	w := bufio.NewWriter(f)
+	b1, err := w.WriteString(fmt.Sprintf("%s", header))
+	btot := 0
+	//
+	for i := int64(len(a)) - 1; i > 0; i-- { // Fisher–Yates shuffle
+		j := randoms.RandomNumberv4(MIN, MAX)
+		b2, err := w.WriteString(fmt.Sprintf("10.0,100.0,%.1f,%d\r\n",
+			float64(j), segments.GetSegmentv4(j, MAX)))
+		check(err)
+		btot = btot + b2
+	}
+	w.Flush()
+	fmt.Printf("Wrote %d bytes\r\n", btot+b1)
+	color.Set(color.FgHiGreen)
+	//fmt.Printf("- File: %s, # of lines: %d, processing time: %s \r\n",
+	//	fileName, lineCount, time.Since(startTime1))
+	fmt.Printf("gen-datasets v4 finnished in %s...\r\n", time.Since(startTime1))
 }
