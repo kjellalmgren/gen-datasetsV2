@@ -5,10 +5,16 @@ import (
 	"strings"
 )
 
+// OFFICES documentation
+const OFFICES = "11;12;21;22;31;32;41;42"
+
 // OFFICENAMES documentation
-const OFFICES = "10;20;30;40;50;60;70;80"
 const OFFICENAMES = "Malmö;Göteborg;stockholm;Uppsala;Karlstad;örebro;Luleå;Kiruna"
+
+// REGIONID documentation
 const REGIONID = "10;10;20;20;30;30;40;40"
+
+// REGION Documentation
 const REGION = "SYD;SYD;ÖST;ÖST;VÅST;VÄST;NORR;NORR"
 
 // CreateOffices documentation

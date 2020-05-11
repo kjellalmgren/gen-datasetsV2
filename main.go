@@ -91,7 +91,7 @@ func init() {
 	}
 
 	if flag.NArg() < 1 {
-		usageAndExit("Need parameters", 0)
+		usageAndExit("Need parameters...", 0)
 	}
 
 	// parse the arg
@@ -229,6 +229,24 @@ func generateV5Datasets() {
 		fmt.Printf("Region: %s ", offices.Offices[j].Region)
 		fmt.Printf("OfficesId: %s - ", offices.Offices[j].OfficeID)
 		fmt.Printf("OfficesName: %s\n", offices.Offices[j].Name)
+		switch offices.Offices[j].RegionID {
+		case "10":
+			{
+				switch offices.Offices[j].OfficeID {
+				case "10":
+					{
+
+					}
+				case "20":
+					{
+
+					}
+				}
+
+			}
+
+		}
+
 	}
 	fmt.Printf("gen-datasets v4 finnished in %s...\r\n", time.Since(startTime1))
 }
