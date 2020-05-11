@@ -247,28 +247,54 @@ func generateV5Datasets() {
 	//
 	offices := offices.CreateOffices()
 	for j := range offices.Offices {
-		fmt.Printf("RegionID: %s ", offices.Offices[j].RegionID)
+		fmt.Printf("RegionID: %.1f ", offices.Offices[j].RegionID)
 		fmt.Printf("Region: %s ", offices.Offices[j].Region)
-		fmt.Printf("OfficesId: %s - ", offices.Offices[j].OfficeID)
+		fmt.Printf("OfficesId: %.1f - ", offices.Offices[j].OfficeID)
 		fmt.Printf("OfficesName: %s\n", offices.Offices[j].Name)
 		switch offices.Offices[j].RegionID {
-		case "10":
+		case 10.0:
 			{
+				distributions := []float64{0.10, 0.20, 0.30, 1.0}
 				switch offices.Offices[j].OfficeID {
-				case "11":
+				case 11.0:
 					{
 						for i := int64(len(a)) - 1; i > 0; i-- { // Fisher–Yates shuffle
 							r := randoms.RandomNumberv5(MIN, MAX)
 							b2, err := w.WriteString(fmt.Sprintf("%.1f,%.1f,%.1f,%d\r\n",
 								offices.Offices[j].RegionID,
 								offices.Offices[j].OfficeID,
-								float64(r), segments.GetSegmentv4(r, MAX)))
+								//float64(r), segments.GetSegmentv4(r, MAX)))
+
+								float64(r), segments.GetSegmentv5(r, MAX, distributions)))
 							check(err)
 							btot = btot + b2
 						}
+					}
+				case 12.0:
+					{
+						distributions := []float64{0.10, 0.20, 0.80, 1.0}
+						for i := int64(len(a)) - 1; i > 0; i-- { // Fisher–Yates shuffle
+							r := randoms.RandomNumberv5(MIN, MAX)
+							b2, err := w.WriteString(fmt.Sprintf("%.1f,%.1f,%.1f,%d\r\n",
+								offices.Offices[j].RegionID,
+								offices.Offices[j].OfficeID,
+								//float64(r), segments.GetSegmentv4(r, MAX)))
+
+								float64(r), segments.GetSegmentv5(r, MAX, distributions)))
+							check(err)
+							btot = btot + b2
+						}
+					}
+				}
+			}
+		case 20.0:
+			{
+				switch offices.Offices[j].OfficeID {
+				case 21.0:
+					{
 
 					}
-				case "12":
+				case 22.0:
 					{
 
 					}

@@ -12,6 +12,6 @@
 *.out
 gen-datasets
 csv/*.csv
-*.code-workspace
+# *.code-workspace
 # Dependency directories (remove the comment below to include it)
 # vendor/
