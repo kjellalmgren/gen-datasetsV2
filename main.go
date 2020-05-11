@@ -264,7 +264,6 @@ func generateV5Datasets() {
 								offices.Offices[j].RegionID,
 								offices.Offices[j].OfficeID,
 								//float64(r), segments.GetSegmentv4(r, MAX)))
-
 								float64(r), segments.GetSegmentv5(r, MAX, distributions)))
 							check(err)
 							btot = btot + b2
@@ -279,7 +278,6 @@ func generateV5Datasets() {
 								offices.Offices[j].RegionID,
 								offices.Offices[j].OfficeID,
 								//float64(r), segments.GetSegmentv4(r, MAX)))
-
 								float64(r), segments.GetSegmentv5(r, MAX, distributions)))
 							check(err)
 							btot = btot + b2
@@ -292,11 +290,97 @@ func generateV5Datasets() {
 				switch offices.Offices[j].OfficeID {
 				case 21.0:
 					{
-
+						distributions := []float64{0.25, 0.50, 0.75, 1.0}
+						for i := int64(len(a)) - 1; i > 0; i-- { // Fisher–Yates shuffle
+							r := randoms.RandomNumberv5(MIN, MAX)
+							b2, err := w.WriteString(fmt.Sprintf("%.1f,%.1f,%.1f,%d\r\n",
+								offices.Offices[j].RegionID,
+								offices.Offices[j].OfficeID,
+								//float64(r), segments.GetSegmentv4(r, MAX)))
+								float64(r), segments.GetSegmentv5(r, MAX, distributions)))
+							check(err)
+							btot = btot + b2
+						}
 					}
 				case 22.0:
 					{
-
+						distributions := []float64{0.25, 0.50, 0.75, 1.0}
+						for i := int64(len(a)) - 1; i > 0; i-- { // Fisher–Yates shuffle
+							r := randoms.RandomNumberv5(MIN, MAX)
+							b2, err := w.WriteString(fmt.Sprintf("%.1f,%.1f,%.1f,%d\r\n",
+								offices.Offices[j].RegionID,
+								offices.Offices[j].OfficeID,
+								//float64(r), segments.GetSegmentv4(r, MAX)))
+								float64(r), segments.GetSegmentv5(r, MAX, distributions)))
+							check(err)
+							btot = btot + b2
+						}
+					}
+				}
+			}
+		case 30.0:
+			{
+				switch offices.Offices[j].OfficeID {
+				case 31.0:
+					{
+						distributions := []float64{0.25, 0.50, 0.75, 1.0}
+						for i := int64(len(a)) - 1; i > 0; i-- { // Fisher–Yates shuffle
+							r := randoms.RandomNumberv5(MIN, MAX)
+							b2, err := w.WriteString(fmt.Sprintf("%.1f,%.1f,%.1f,%d\r\n",
+								offices.Offices[j].RegionID,
+								offices.Offices[j].OfficeID,
+								//float64(r), segments.GetSegmentv4(r, MAX)))
+								float64(r), segments.GetSegmentv5(r, MAX, distributions)))
+							check(err)
+							btot = btot + b2
+						}
+					}
+				case 32.0:
+					{
+						distributions := []float64{0.25, 0.50, 0.75, 1.0}
+						for i := int64(len(a)) - 1; i > 0; i-- { // Fisher–Yates shuffle
+							r := randoms.RandomNumberv5(MIN, MAX)
+							b2, err := w.WriteString(fmt.Sprintf("%.1f,%.1f,%.1f,%d\r\n",
+								offices.Offices[j].RegionID,
+								offices.Offices[j].OfficeID,
+								//float64(r), segments.GetSegmentv4(r, MAX)))
+								float64(r), segments.GetSegmentv5(r, MAX, distributions)))
+							check(err)
+							btot = btot + b2
+						}
+					}
+				}
+			}
+		case 40:
+			{
+				switch offices.Offices[j].OfficeID {
+				case 41:
+					{
+						distributions := []float64{0.25, 0.50, 0.75, 1.0}
+						for i := int64(len(a)) - 1; i > 0; i-- { // Fisher–Yates shuffle
+							r := randoms.RandomNumberv5(MIN, MAX)
+							b2, err := w.WriteString(fmt.Sprintf("%.1f,%.1f,%.1f,%d\r\n",
+								offices.Offices[j].RegionID,
+								offices.Offices[j].OfficeID,
+								//float64(r), segments.GetSegmentv4(r, MAX)))
+								float64(r), segments.GetSegmentv5(r, MAX, distributions)))
+							check(err)
+							btot = btot + b2
+						}
+					}
+				case 42:
+					{
+						distributions := []float64{0.25, 0.50, 0.75, 1.0}
+						for i := int64(len(a)) - 1; i > 0; i-- { // Fisher–Yates shuffle
+							r := randoms.RandomNumberv5(MIN, MAX)
+							b2, err := w.WriteString(fmt.Sprintf("%.1f,%.1f,%.1f,%d\r\n",
+								offices.Offices[j].RegionID,
+								offices.Offices[j].OfficeID,
+								//float64(r), segments.GetSegmentv4(r, MAX)))
+								float64(r), segments.GetSegmentv5(r, MAX, distributions)))
+							check(err)
+							btot = btot + b2
+						}
 					}
 				}
 			}
