@@ -1,6 +1,7 @@
 package offices
 
 import (
+	"fmt"
 	"gen-datasets/models"
 	"strings"
 )
@@ -15,11 +16,14 @@ const OFFICENAMES = "Malmö;Göteborg;stockholm;Uppsala;Karlstad;örebro;Luleå;
 const REGIONID = "10;10;20;20;30;30;40;40"
 
 // REGION Documentation
-const REGION = "SYD;SYD;ÖST;ÖST;VÅST;VÄST;NORR;NORR"
+const REGION = "SYD;SYD;ÖST;ÖST;VÄST;VÄST;NORR;NORR"
 
 // CreateOffices documentation
 func CreateOffices() models.OfficesType {
 
+	offices1 := [8]float64{11, 12, 21, 22, 31, 32, 41, 42}
+	fmt.Printf("%.1f", offices1[1])
+	//
 	offices := models.OfficesType{}
 	office := models.OfficeType{}
 	//

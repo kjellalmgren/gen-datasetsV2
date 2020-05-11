@@ -42,9 +42,11 @@ var (
 	max int64
 )
 
-// NUMBERS Documentation
+// NUMBERSV4 Documentation
 const NUMBERSV4 = 1000
-const NUMBERSV5 = 0
+
+// NUMBERSV5 documentation
+const NUMBERSV5 = 1000
 
 // MIN - Hundra tusen
 const MIN = 1000
@@ -223,6 +225,26 @@ func generateV5Datasets() {
 
 	startTime1 := time.Now()
 	// Display regions and offices
+	fmt.Printf("Range to be used: (%d - %d) number of records to produce %d\r\n",
+		MIN, MAX, NUMBERSV5)
+	//
+	fmt.Printf("Start init integer array\r\n")
+	a := [NUMBERSV5]float64{}
+	fmt.Printf("Start random order array\r\n")
+	//
+	rand.Shuffle(len(a), func(i, j int) { a[i], a[j] = a[j], a[i] })
+	// #############################
+	header := []byte("Region,Office,Reveue,Segment\r\n")
+	err := ioutil.WriteFile("csv/segment_training_v5.csv", header, 0644)
+	check(err)
+	f, err := os.Create("csv/segment_training_v5.csv")
+	check(err)
+	defer f.Close()
+	w := bufio.NewWriter(f)
+	b1, err := w.WriteString(fmt.Sprintf("%s", header))
+	btot := 0
+	// #############################
+	//
 	offices := offices.CreateOffices()
 	for j := range offices.Offices {
 		fmt.Printf("RegionID: %s ", offices.Offices[j].RegionID)
@@ -233,20 +255,29 @@ func generateV5Datasets() {
 		case "10":
 			{
 				switch offices.Offices[j].OfficeID {
-				case "10":
+				case "11":
 					{
+						for i := int64(len(a)) - 1; i > 0; i-- { // Fisher–Yates shuffle
+							r := randoms.RandomNumberv5(MIN, MAX)
+							b2, err := w.WriteString(fmt.Sprintf("%.1f,%.1f,%.1f,%d\r\n",
+								offices.Offices[j].RegionID,
+								offices.Offices[j].OfficeID,
+								float64(r), segments.GetSegmentv4(r, MAX)))
+							check(err)
+							btot = btot + b2
+						}
 
 					}
-				case "20":
+				case "12":
 					{
 
 					}
 				}
-
 			}
-
 		}
-
 	}
-	fmt.Printf("gen-datasets v4 finnished in %s...\r\n", time.Since(startTime1))
+	w.Flush()
+	fmt.Printf("Wrote %d bytes\r\n", btot+b1)
+	color.Set(color.FgHiGreen)
+	fmt.Printf("gen-datasets v5 finnished in %s...\r\n", time.Since(startTime1))
 }
