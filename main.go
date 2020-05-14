@@ -46,13 +46,13 @@ var (
 const NUMBERSV4 = 1000
 
 // NUMBERSV5 documentation
-const NUMBERSV5 = 1000
+const NUMBERSV5 = 20000
 
 // MIN - Hundra tusen
 const MIN = 1000
 
 // MAX - 10000
-const MAX = 10000 // 50 miljoner
+const MAX = 100000 // 50 miljoner
 // NumberofRegion Documentation
 const NumberofRegion = 4
 
@@ -254,10 +254,10 @@ func generateV5Datasets() {
 		switch offices.Offices[j].RegionID {
 		case 10.0:
 			{
-				distributions := []float64{0.10, 0.20, 0.30, 1.0}
 				switch offices.Offices[j].OfficeID {
 				case 11.0:
 					{
+						distributions := []float64{0.25, 0.50, 0.75, 1.0}
 						for i := int64(len(a)) - 1; i > 0; i-- { // Fisher–Yates shuffle
 							r := randoms.RandomNumberv5(MIN, MAX)
 							b2, err := w.WriteString(fmt.Sprintf("%.1f,%.1f,%.1f,%d\r\n",
@@ -271,7 +271,7 @@ func generateV5Datasets() {
 					}
 				case 12.0:
 					{
-						distributions := []float64{0.10, 0.20, 0.80, 1.0}
+						distributions := []float64{0.25, 0.50, 0.75, 1.0}
 						for i := int64(len(a)) - 1; i > 0; i-- { // Fisher–Yates shuffle
 							r := randoms.RandomNumberv5(MIN, MAX)
 							b2, err := w.WriteString(fmt.Sprintf("%.1f,%.1f,%.1f,%d\r\n",
