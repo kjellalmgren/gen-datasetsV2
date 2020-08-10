@@ -9,6 +9,7 @@ import (
 	"gen-datasets/segments"
 	"gen-datasets/version"
 	"io/ioutil"
+	"math"
 	"math/rand"
 	"os"
 	"time"
@@ -46,13 +47,13 @@ var (
 const NUMBERSV4 = 1000
 
 // NUMBERSV5 documentation
-const NUMBERSV5 = 20000
+const NUMBERSV5 = 25000
 
 // MIN - Hundra tusen
-const MIN = 1000
+const MIN = 100000
 
 // MAX - 10000
-const MAX = 100000 // 50 miljoner
+const MAX = 10000000 // 50 miljoner
 // NumberofRegion Documentation
 const NumberofRegion = 4
 
@@ -249,8 +250,8 @@ func generateV5Datasets() {
 	for j := range offices.Offices {
 		fmt.Printf("RegionID: %.1f ", offices.Offices[j].RegionID)
 		fmt.Printf("Region: %s ", offices.Offices[j].Region)
-		fmt.Printf("OfficesId: %.1f - ", offices.Offices[j].OfficeID)
-		fmt.Printf("OfficesName: %s\n", offices.Offices[j].Name)
+		fmt.Printf("OfficeId: %.1f - ", offices.Offices[j].OfficeID)
+		fmt.Printf("OfficeName: %s\n", offices.Offices[j].Name)
 		switch offices.Offices[j].RegionID {
 		case 10.0:
 			{
@@ -264,7 +265,8 @@ func generateV5Datasets() {
 								offices.Offices[j].RegionID,
 								offices.Offices[j].OfficeID,
 								//float64(r), segments.GetSegmentv4(r, MAX)))
-								float64(r), segments.GetSegmentv5(r, MAX, distributions)))
+								float64(math.RoundToEven(r)),
+								segments.GetSegmentv5(r, MAX, distributions)))
 							check(err)
 							btot = btot + b2
 						}
@@ -278,7 +280,8 @@ func generateV5Datasets() {
 								offices.Offices[j].RegionID,
 								offices.Offices[j].OfficeID,
 								//float64(r), segments.GetSegmentv4(r, MAX)))
-								float64(r), segments.GetSegmentv5(r, MAX, distributions)))
+								float64(math.RoundToEven(r)),
+								segments.GetSegmentv5(r, MAX, distributions)))
 							check(err)
 							btot = btot + b2
 						}
@@ -297,7 +300,8 @@ func generateV5Datasets() {
 								offices.Offices[j].RegionID,
 								offices.Offices[j].OfficeID,
 								//float64(r), segments.GetSegmentv4(r, MAX)))
-								float64(r), segments.GetSegmentv5(r, MAX, distributions)))
+								float64(math.RoundToEven(r)),
+								segments.GetSegmentv5(r, MAX, distributions)))
 							check(err)
 							btot = btot + b2
 						}
@@ -311,7 +315,8 @@ func generateV5Datasets() {
 								offices.Offices[j].RegionID,
 								offices.Offices[j].OfficeID,
 								//float64(r), segments.GetSegmentv4(r, MAX)))
-								float64(r), segments.GetSegmentv5(r, MAX, distributions)))
+								float64(math.RoundToEven(r)),
+								segments.GetSegmentv5(r, MAX, distributions)))
 							check(err)
 							btot = btot + b2
 						}
@@ -330,7 +335,8 @@ func generateV5Datasets() {
 								offices.Offices[j].RegionID,
 								offices.Offices[j].OfficeID,
 								//float64(r), segments.GetSegmentv4(r, MAX)))
-								float64(r), segments.GetSegmentv5(r, MAX, distributions)))
+								float64(math.RoundToEven(r)),
+								segments.GetSegmentv5(r, MAX, distributions)))
 							check(err)
 							btot = btot + b2
 						}
@@ -344,7 +350,8 @@ func generateV5Datasets() {
 								offices.Offices[j].RegionID,
 								offices.Offices[j].OfficeID,
 								//float64(r), segments.GetSegmentv4(r, MAX)))
-								float64(r), segments.GetSegmentv5(r, MAX, distributions)))
+								float64(math.RoundToEven(r)),
+								segments.GetSegmentv5(r, MAX, distributions)))
 							check(err)
 							btot = btot + b2
 						}
@@ -363,7 +370,8 @@ func generateV5Datasets() {
 								offices.Offices[j].RegionID,
 								offices.Offices[j].OfficeID,
 								//float64(r), segments.GetSegmentv4(r, MAX)))
-								float64(r), segments.GetSegmentv5(r, MAX, distributions)))
+								float64(math.RoundToEven(r)),
+								segments.GetSegmentv5(r, MAX, distributions)))
 							check(err)
 							btot = btot + b2
 						}
@@ -377,7 +385,8 @@ func generateV5Datasets() {
 								offices.Offices[j].RegionID,
 								offices.Offices[j].OfficeID,
 								//float64(r), segments.GetSegmentv4(r, MAX)))
-								float64(r), segments.GetSegmentv5(r, MAX, distributions)))
+								float64(math.RoundToEven(r)),
+								segments.GetSegmentv5(r, MAX, distributions)))
 							check(err)
 							btot = btot + b2
 						}

@@ -26,7 +26,7 @@ func GetSegmentv4(i float64, MAX float64) int {
 
 // getSegmentv5 documentation
 // Här ska vi kunna returnera baserad på en distribution av 4 värden 0.0 - 1.0
-// detta för att kunna så regioner och kontor med olika mycket omsättning
+// detta för att kunna få regioner och kontor med olika mycket omsättning
 func GetSegmentv5(i float64, MAX float64, distribution []float64) int {
 
 	segment := 0

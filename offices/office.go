@@ -6,7 +6,7 @@ import (
 )
 
 // OFFICENAMES documentation
-const OFFICENAMES = "Malmö;Göteborg;stockholm;Uppsala;Karlstad;örebro;Luleå;Kiruna"
+const OFFICENAMES = "Malmö;Göteborg;Stockholm;Uppsala;Karlstad;Örebro;Luleå;Kiruna"
 
 // REGION Documentation
 const REGION = "SYD;SYD;ÖST;ÖST;VÄST;VÄST;NORR;NORR"
