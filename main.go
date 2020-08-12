@@ -53,7 +53,7 @@ const NUMBERSV5 = 25000
 const MIN = 100000
 
 // MAX - 10000
-const MAX = 10000000 // 50 miljoner
+const MAX = 10000000 // not used in V5
 // NumberofRegion Documentation
 const NumberofRegion = 4
 
@@ -226,8 +226,7 @@ func generateV5Datasets() {
 
 	startTime1 := time.Now()
 	// Display regions and offices
-	fmt.Printf("Range to be used: (%d - %d) number of records to produce %d\r\n",
-		MIN, MAX, NUMBERSV5)
+	//fmt.Printf("Range to be used: (%d - %d) number of records to produce %d\r\n",MIN, MAX, NUMBERSV5)
 	//
 	fmt.Printf("Start init integer array\r\n")
 	a := [NUMBERSV5]float64{}
@@ -258,33 +257,37 @@ func generateV5Datasets() {
 				switch offices.Offices[j].OfficeID {
 				case 11.0:
 					{
+						max := 12000000.0
 						distributions := []float64{0.25, 0.50, 0.75, 1.0}
 						for i := int64(len(a)) - 1; i > 0; i-- { // Fisher–Yates shuffle
-							r := randoms.RandomNumberv5(MIN, MAX)
+							r := randoms.RandomNumberv5(MIN, max)
 							b2, err := w.WriteString(fmt.Sprintf("%.1f,%.1f,%.1f,%d\r\n",
 								offices.Offices[j].RegionID,
 								offices.Offices[j].OfficeID,
 								//float64(r), segments.GetSegmentv4(r, MAX)))
 								float64(math.RoundToEven(r)),
-								segments.GetSegmentv5(r, MAX, distributions)))
+								segments.GetSegmentv5(r, max, distributions)))
 							check(err)
 							btot = btot + b2
 						}
+						fmt.Printf("Range to be used: (%dSEK - %.0fSEK) number of records to produce %d\r\n", MIN, max, NUMBERSV5)
 					}
 				case 12.0:
 					{
+						max := 20000000.0
 						distributions := []float64{0.25, 0.50, 0.75, 1.0}
 						for i := int64(len(a)) - 1; i > 0; i-- { // Fisher–Yates shuffle
-							r := randoms.RandomNumberv5(MIN, MAX)
+							r := randoms.RandomNumberv5(MIN, max)
 							b2, err := w.WriteString(fmt.Sprintf("%.1f,%.1f,%.1f,%d\r\n",
 								offices.Offices[j].RegionID,
 								offices.Offices[j].OfficeID,
 								//float64(r), segments.GetSegmentv4(r, MAX)))
 								float64(math.RoundToEven(r)),
-								segments.GetSegmentv5(r, MAX, distributions)))
+								segments.GetSegmentv5(r, max, distributions)))
 							check(err)
 							btot = btot + b2
 						}
+						fmt.Printf("Range to be used: (%dSEK - %.0fSEK) number of records to produce %d\r\n", MIN, max, NUMBERSV5)
 					}
 				}
 			}
@@ -293,33 +296,37 @@ func generateV5Datasets() {
 				switch offices.Offices[j].OfficeID {
 				case 21.0:
 					{
+						max := 12000000.0
 						distributions := []float64{0.25, 0.50, 0.75, 1.0}
 						for i := int64(len(a)) - 1; i > 0; i-- { // Fisher–Yates shuffle
-							r := randoms.RandomNumberv5(MIN, MAX)
+							r := randoms.RandomNumberv5(MIN, max)
 							b2, err := w.WriteString(fmt.Sprintf("%.1f,%.1f,%.1f,%d\r\n",
 								offices.Offices[j].RegionID,
 								offices.Offices[j].OfficeID,
 								//float64(r), segments.GetSegmentv4(r, MAX)))
 								float64(math.RoundToEven(r)),
-								segments.GetSegmentv5(r, MAX, distributions)))
+								segments.GetSegmentv5(r, max, distributions)))
 							check(err)
 							btot = btot + b2
 						}
+						fmt.Printf("Range to be used: (%dSEK - %.0fSEK) number of records to produce %d\r\n", MIN, max, NUMBERSV5)
 					}
 				case 22.0:
 					{
+						max := 12000000.0
 						distributions := []float64{0.25, 0.50, 0.75, 1.0}
 						for i := int64(len(a)) - 1; i > 0; i-- { // Fisher–Yates shuffle
-							r := randoms.RandomNumberv5(MIN, MAX)
+							r := randoms.RandomNumberv5(MIN, max)
 							b2, err := w.WriteString(fmt.Sprintf("%.1f,%.1f,%.1f,%d\r\n",
 								offices.Offices[j].RegionID,
 								offices.Offices[j].OfficeID,
 								//float64(r), segments.GetSegmentv4(r, MAX)))
 								float64(math.RoundToEven(r)),
-								segments.GetSegmentv5(r, MAX, distributions)))
+								segments.GetSegmentv5(r, max, distributions)))
 							check(err)
 							btot = btot + b2
 						}
+						fmt.Printf("Range to be used: (%dSEK - %.0fSEK) number of records to produce %d\r\n", MIN, max, NUMBERSV5)
 					}
 				}
 			}
@@ -328,33 +335,37 @@ func generateV5Datasets() {
 				switch offices.Offices[j].OfficeID {
 				case 31.0:
 					{
+						max := 15000000.0
 						distributions := []float64{0.25, 0.50, 0.75, 1.0}
 						for i := int64(len(a)) - 1; i > 0; i-- { // Fisher–Yates shuffle
-							r := randoms.RandomNumberv5(MIN, MAX)
+							r := randoms.RandomNumberv5(MIN, max)
 							b2, err := w.WriteString(fmt.Sprintf("%.1f,%.1f,%.1f,%d\r\n",
 								offices.Offices[j].RegionID,
 								offices.Offices[j].OfficeID,
 								//float64(r), segments.GetSegmentv4(r, MAX)))
 								float64(math.RoundToEven(r)),
-								segments.GetSegmentv5(r, MAX, distributions)))
+								segments.GetSegmentv5(r, max, distributions)))
 							check(err)
 							btot = btot + b2
 						}
+						fmt.Printf("Range to be used: (%dSEK - %.0fSEK) number of records to produce %d\r\n", MIN, max, NUMBERSV5)
 					}
 				case 32.0:
 					{
+						max := 15000000.0
 						distributions := []float64{0.25, 0.50, 0.75, 1.0}
 						for i := int64(len(a)) - 1; i > 0; i-- { // Fisher–Yates shuffle
-							r := randoms.RandomNumberv5(MIN, MAX)
+							r := randoms.RandomNumberv5(MIN, max)
 							b2, err := w.WriteString(fmt.Sprintf("%.1f,%.1f,%.1f,%d\r\n",
 								offices.Offices[j].RegionID,
 								offices.Offices[j].OfficeID,
 								//float64(r), segments.GetSegmentv4(r, MAX)))
 								float64(math.RoundToEven(r)),
-								segments.GetSegmentv5(r, MAX, distributions)))
+								segments.GetSegmentv5(r, max, distributions)))
 							check(err)
 							btot = btot + b2
 						}
+						fmt.Printf("Range to be used: (%dSEK - %.0fSEK) number of records to produce %d\r\n", MIN, max, NUMBERSV5)
 					}
 				}
 			}
@@ -363,33 +374,37 @@ func generateV5Datasets() {
 				switch offices.Offices[j].OfficeID {
 				case 41:
 					{
+						max := 8000000.0
 						distributions := []float64{0.25, 0.50, 0.75, 1.0}
 						for i := int64(len(a)) - 1; i > 0; i-- { // Fisher–Yates shuffle
-							r := randoms.RandomNumberv5(MIN, MAX)
+							r := randoms.RandomNumberv5(MIN, max)
 							b2, err := w.WriteString(fmt.Sprintf("%.1f,%.1f,%.1f,%d\r\n",
 								offices.Offices[j].RegionID,
 								offices.Offices[j].OfficeID,
 								//float64(r), segments.GetSegmentv4(r, MAX)))
 								float64(math.RoundToEven(r)),
-								segments.GetSegmentv5(r, MAX, distributions)))
+								segments.GetSegmentv5(r, max, distributions)))
 							check(err)
 							btot = btot + b2
 						}
+						fmt.Printf("Range to be used: (%dSEK - %.0fSEK) number of records to produce %d\r\n", MIN, max, NUMBERSV5)
 					}
 				case 42:
 					{
 						distributions := []float64{0.25, 0.50, 0.75, 1.0}
+						max := 5000000.0
 						for i := int64(len(a)) - 1; i > 0; i-- { // Fisher–Yates shuffle
-							r := randoms.RandomNumberv5(MIN, MAX)
+							r := randoms.RandomNumberv5(MIN, max)
 							b2, err := w.WriteString(fmt.Sprintf("%.1f,%.1f,%.1f,%d\r\n",
 								offices.Offices[j].RegionID,
 								offices.Offices[j].OfficeID,
 								//float64(r), segments.GetSegmentv4(r, MAX)))
 								float64(math.RoundToEven(r)),
-								segments.GetSegmentv5(r, MAX, distributions)))
+								segments.GetSegmentv5(r, max, distributions)))
 							check(err)
 							btot = btot + b2
 						}
+						fmt.Printf("Range to be used: (%dSEK - %.0fSEK) number of records to produce %d\r\n", MIN, max, NUMBERSV5)
 					}
 				}
 			}
