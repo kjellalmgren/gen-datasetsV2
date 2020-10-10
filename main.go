@@ -47,7 +47,7 @@ var (
 const NUMBERSV4 = 1000
 
 // NUMBERSV5 documentation
-const NUMBERSV5 = 25000
+const NUMBERSV5 = 1000000
 
 // MIN - Hundra tusen
 const MIN = 100000
@@ -274,7 +274,7 @@ func generateV5Datasets() {
 					}
 				case 12.0:
 					{
-						max := 20000000.0
+						max := 12000000.0
 						distributions := []float64{0.25, 0.50, 0.75, 1.0}
 						for i := int64(len(a)) - 1; i > 0; i-- { // Fisher–Yates shuffle
 							r := randoms.RandomNumberv5(MIN, max)

@@ -14,5 +14,5 @@ func ModelVersion() string {
 
 // ModelDate change date
 func ModelDate() string {
-	return "2020-08-12"
+	return "2020-10-10"
 }
