@@ -44,16 +44,19 @@ var (
 )
 
 // NUMBERSV4 Documentation
-const NUMBERSV4 = 1000
+const NUMBERSV4 = 20000
 
 // NUMBERSV5 documentation
 const NUMBERSV5 = 1000000
 
 // MIN - Hundra tusen
 const MIN = 100000
+const V4MIN = 1000
 
 // MAX - 10000
 const MAX = 10000000 // not used in V5
+const V4MAX = 100000
+
 // NumberofRegion Documentation
 const NumberofRegion = 4
 
@@ -133,7 +136,7 @@ func main() {
 		color.Set(color.FgHiGreen)
 		fmt.Printf("gen-datasets v4 started...\r\n")
 		color.Unset()
-		generateV4Datasets(MIN, MAX)
+		generateV4Datasets(V4MIN, V4MAX)
 	}
 	//
 	if v5 == true {
@@ -193,7 +196,7 @@ func generateV4Datasets(MIN float64, MAX float64) {
 
 	rand.Shuffle(len(a), func(i, j int) { a[i], a[j] = a[j], a[i] })
 	// #############################
-	header := []byte("Region,Office,Reveue,Segment\r\n")
+	header := []byte("Region,Office,Revenue,Segment\r\n")
 	//
 	err := ioutil.WriteFile("csv/segment_training_v4.csv", header, 0644)
 	check(err)
@@ -234,7 +237,7 @@ func generateV5Datasets() {
 	//
 	rand.Shuffle(len(a), func(i, j int) { a[i], a[j] = a[j], a[i] })
 	// #############################
-	header := []byte("Region,Office,Reveue,Segment\r\n")
+	header := []byte("Region,Office,Revenue,Segment\r\n")
 	err := ioutil.WriteFile("csv/segment_training_v5.csv", header, 0644)
 	check(err)
 	f, err := os.Create("csv/segment_training_v5.csv")
