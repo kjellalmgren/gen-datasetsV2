@@ -51,11 +51,10 @@ const NUMBERSV5 = 1000000
 
 // MIN - Hundra tusen
 const MIN = 100000
-const V4MIN = 1000
-
-// MAX - 10000
 const MAX = 10000000 // not used in V5
-const V4MAX = 100000
+//
+const V4MIN = 0
+const V4MAX = 200000
 
 // NumberofRegion Documentation
 const NumberofRegion = 4
@@ -200,24 +199,44 @@ func generateV4Datasets(MIN float64, MAX float64) {
 	//
 	err := ioutil.WriteFile("csv/segment_training_v4.csv", header, 0644)
 	check(err)
+	errv := ioutil.WriteFile("csv/segment_evaluation_v4.csv", header, 0644)
+	check(errv)
 	f, err := os.Create("csv/segment_training_v4.csv")
 	check(err)
+	fv, errv := os.Create("csv/segment_evaluation_v4.csv")
+	check(err)
 	defer f.Close()
+	defer fv.Close()
 	//
 	//
 	w := bufio.NewWriter(f)
 	b1, err := w.WriteString(fmt.Sprintf("%s", header))
+	wv := bufio.NewWriter(fv)
+	bv, err := wv.WriteString(fmt.Sprintf("%s", header))
 	btot := 0
+	bvtot := 0
 	//
+	proc := 0.30
+	v := int64(NUMBERSV4 * proc) // Get % of MAX for evaluation set
+	fmt.Printf("Evaluation set: %d is %d %% of training set\r\n", v, (int64(proc * 100)))
 	for i := int64(len(a)) - 1; i > 0; i-- { // Fisher–Yates shuffle
 		j := randoms.RandomNumberv4(MIN, MAX)
-		b2, err := w.WriteString(fmt.Sprintf("10.0,100.0,%.1f,%d\r\n",
+		b1, err := w.WriteString(fmt.Sprintf("10.0,100.0,%.1f,%d\r\n",
 			float64(j), segments.GetSegmentv4(j, MAX)))
 		check(err)
-		btot = btot + b2
+		if v > 0 {
+			bv, err := wv.WriteString(fmt.Sprintf("10.0,100.0,%.1f,%d\r\n",
+				float64(j), segments.GetSegmentv4(j, MAX)))
+			check(err)
+			v--
+			bvtot = bvtot + bv
+		}
+		btot = btot + b1
 	}
-	w.Flush()
-	fmt.Printf("Wrote %d bytes\r\n", btot+b1)
+	w.Flush()  // Flush training set
+	wv.Flush() // Flush evaluation set
+	fmt.Printf("Wrote %d bytes for training set\r\n", btot+b1)
+	fmt.Printf("Wrote %d bytes for evaluation set ", bvtot+bv)
 	color.Set(color.FgHiGreen)
 	//fmt.Printf("- File: %s, # of lines: %d, processing time: %s \r\n",
 	//	fileName, lineCount, time.Since(startTime1))
