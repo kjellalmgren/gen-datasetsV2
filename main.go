@@ -44,7 +44,7 @@ var (
 )
 
 // NUMBERSV4 Documentation
-const NUMBERSV4 = 20000
+const NUMBERSV4 = 300000
 
 // NUMBERSV5 documentation
 const NUMBERSV5 = 1000000
@@ -54,7 +54,7 @@ const MIN = 100000
 const MAX = 10000000 // not used in V5
 //
 const V4MIN = 0
-const V4MAX = 200000
+const V4MAX = 2000000 // NUMBERSV4 is 15% V4MAX
 
 // NumberofRegion Documentation
 const NumberofRegion = 4
@@ -185,7 +185,7 @@ func usageAndExit(message string, exitCode int) {
 func generateV4Datasets(MIN float64, MAX float64) {
 
 	startTime1 := time.Now()
-	fmt.Printf("Range to be used: (%f - %f) number of records to produce %d\r\n",
+	fmt.Printf("Range to be used: (%f - %f) number of records to produce: %d\r\n",
 		MIN, MAX, NUMBERSV4)
 	// #############################
 	//a := []int{1, 2, 3, 4, 5, 6, 7, 8}
