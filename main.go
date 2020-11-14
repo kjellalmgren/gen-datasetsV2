@@ -221,11 +221,11 @@ func generateV4Datasets(MIN float64, MAX float64) {
 	fmt.Printf("Evaluation set: %d is %d %% of training set\r\n", v, (int64(proc * 100)))
 	for i := int64(len(a)) - 1; i > 0; i-- { // Fisher–Yates shuffle
 		j := randoms.RandomNumberv4(MIN, MAX)
-		b1, err := w.WriteString(fmt.Sprintf("10.0,100.0,%.1f,%d\r\n",
+		b1, err := w.WriteString(fmt.Sprintf("10,100,%.1f,%d\r\n",
 			float64(j), segments.GetSegmentv4(j, MAX)))
 		check(err)
 		if v > 0 {
-			bv, err := wv.WriteString(fmt.Sprintf("10.0,100.0,%.1f,%d\r\n",
+			bv, err := wv.WriteString(fmt.Sprintf("10,100,%.1f,%d\r\n",
 				float64(j), segments.GetSegmentv4(j, MAX)))
 			check(err)
 			v--
