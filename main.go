@@ -195,7 +195,7 @@ func generateV4Datasets(MIN float64, MAX float64) {
 
 	rand.Shuffle(len(a), func(i, j int) { a[i], a[j] = a[j], a[i] })
 	// #############################
-	header := []byte("Region,Office,Revenue,Segment\r\n")
+	header := []byte("region,office,revenue,segment\r\n")
 	//
 	err := ioutil.WriteFile("csv/segment_training_v4.csv", header, 0644)
 	check(err)
@@ -256,7 +256,7 @@ func generateV5Datasets() {
 	//
 	rand.Shuffle(len(a), func(i, j int) { a[i], a[j] = a[j], a[i] })
 	// #############################
-	header := []byte("Region,Office,Revenue,Segment\r\n")
+	header := []byte("region,office,revenue,segment\r\n")
 	err := ioutil.WriteFile("csv/segment_training_v5.csv", header, 0644)
 	check(err)
 	f, err := os.Create("csv/segment_training_v5.csv")
