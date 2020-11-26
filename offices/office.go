@@ -14,8 +14,8 @@ const REGION = "SYD;SYD;ÖST;ÖST;VÄST;VÄST;NORR;NORR"
 // CreateOffices documentation
 func CreateOffices() models.OfficesType {
 
-	officeIDs := [8]float64{11, 12, 21, 22, 31, 32, 41, 42}
-	regionIDs := [8]float64{10.0, 10.0, 20.0, 20.0, 30.0, 30.0, 40.0, 40.0}
+	officeIDs := [8]int64{11, 12, 21, 22, 31, 32, 41, 42}
+	regionIDs := [8]int64{10.0, 10.0, 20.0, 20.0, 30.0, 30.0, 40.0, 40.0}
 	//
 	offices := models.OfficesType{}
 	office := models.OfficeType{}

@@ -2,10 +2,10 @@ package models
 
 // OfficeType documentation
 type OfficeType struct {
-	OfficeID float64 `json:"officeID"`
-	Name     string  `json:"Name"`
-	RegionID float64 `json:"RegionID"`
-	Region   string  `json:"Region"`
+	OfficeID int64  `json:"officeID"`
+	Name     string `json:"Name"`
+	RegionID int64  `json:"RegionID"`
+	Region   string `json:"Region"`
 }
 
 // OfficesType documentation
